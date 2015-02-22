@@ -1,0 +1,58 @@
+# Esta función funciona como una clase, se crea una lista
+# Que contiene las funciones de 4 miembros: conjunto, obtener, setInv
+# Y getInv. que utiliza << - operador de asignación de modo que
+# Estas variables internas no están expuestos a la
+# Ambiente exterior. 
+
+  makeCacheMatrix <- función (x = matriz ()) {
+
+      xInv <- NULL # este es el lugar donde se almacena el resultado de la inversión
+      # Una función setter, utilice esta opción para establecer una matriz de objeto creado por la función makeCacheMatrix
+      # Por ejemplo makeCacheMatrix (testmatrix) # aquí trabajamos en testmatrix
+      # MakeCacheMatrix $ set (testmatrix1) # aquí trabajamos en testmatrix1
+      set <- función (y) {
+	  x << - y
+	  xInv << - NULL # también inicializa xInv null
+      }
+
+      conseguir <- función () x # devolver la matriz de entrada
+      setInv <- función (inv) xInv << - inv # coloca en la matriz inversed
+      getInv <- función () xInv # devolver la matriz invertida
+      # Devolver una lista que contenga estas funciones, por lo que podemos utilizar
+      # MakeCacheMatrix objeto como estos
+      # X <- makeCacheMatrix (testmatrix)
+      # X $ set (newmatrix) # para cambiar la matriz
+      # x $ consiguen el # para obtener la matriz Setted
+      # X $ setInv # para configurar la matriz invertida
+      # X $ getInv # para obtener la matriz invertida
+      lista (juego = set, get = get,
+	       setInv = setInv,
+	       getInv = getInv)
+  }
+
+
+  cacheSolve <- función (x, ...) {
+      m <- x $ getInv () # obtener la matriz inversed del objeto x
+      # Será nulo si no calculado, recuerda la primera línea "xInv <- NULL" en la función anterior
+      if (! is.null (m)) {# si el resultado de inversión es allí
+	  mensaje ("la obtención de datos en caché")
+	  retorno (m) # devolver la inversión calculada
+      }
+      datos <- x $ get () # si no, nos hacen x $ llegar a conseguir el objeto de matriz
+      m <- resolver (datos) # lo solucionamos
+      x $ setInv (m) # entonces puso al objeto
+      m # devolver el resultado resuelto
+  }
+
+  # Prueba
+  # Generar un cuadrado al azar, la matriz no singular
+  prueba <- matriz (runif (9,1,100), 3,3)
+  # Generar el objeto makeCacheMatrix con esta matriz
+  testCached <- makeCacheMatrix (prueba)
+  # De ahora en calcular o recuperar la inversión calculada utilizando la función cacheSolve
+
+  testInv <- cacheSolve (testCached)
+  testInv <- cacheSolve (testCached)
+  testInv <- cacheSolve (testCached)
+  testInv <- cacheSolve (testCached)
+  testInv <- cacheSolve (testCached)
